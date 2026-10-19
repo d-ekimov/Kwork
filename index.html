@@ -1,207 +1,340 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Купить кроссовки</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-  
-  body { 
-    background: #f8f9fa; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    min-height: 100vh; 
-    padding: 20px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#260817">
+  <title>Для Карины ❤️</title>
 
-  /* Сама карточка */
-  .product-card { 
-    background: #fff; 
-    max-width: 900px; 
-    width: 100%;
-    display: flex; 
-    border-radius: 24px; 
-    overflow: hidden; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-  /* Левая часть с картинкой */
-  .product-img-wrapper { 
-    width: 50%; 
-    background: #f3f4f6; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    padding: 40px;
-    position: relative;
-  }
-  
-  /* Место для твоей картинки */
-  .product-img { 
-    width: 100%; 
-    max-width: 400px; 
-    height: auto;
-    border-radius: 15px;
-    object-fit: contain;
-    /* Если картинки нет, будет видно эту серую заглушку */
-    background: #e5e7eb;
-  }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* Бейджик "Хит продаж" */
-  .badge {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    background: #ef4444;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(ellipse at 50% 40%, #6e1740 0%, transparent 48%),
+        linear-gradient(145deg, #160610, #390d27 55%, #170612);
+      font-family: 'Montserrat', sans-serif;
+    }
 
-  /* Правая часть с информацией */
-  .product-info { 
-    width: 50%; 
-    padding: 50px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+    .scene {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 28px 22px;
+      overflow: hidden;
+      isolation: isolate;
+    }
 
-  .brand { 
-    color: #ef4444; 
-    font-weight: 800; 
-    letter-spacing: 3px; 
-    text-transform: uppercase; 
-    margin-bottom: 15px; 
-    font-size: 0.9rem;
-  }
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: #ff3f89;
+      filter: blur(110px);
+      opacity: 0.19;
+      animation: glow 5s ease-in-out infinite alternate;
+      z-index: -1;
+    }
 
-  .title { 
-    font-size: 2.5rem; 
-    color: #111827; 
-    margin-bottom: 15px; 
-    line-height: 1.1; 
-    font-weight: 700;
-  }
+    .glow.one {
+      top: -120px;
+      left: -100px;
+    }
 
-  /* Звездочки рейтинга */
-  .rating {
-    color: #fbbf24;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .rating span { color: #6b7280; font-size: 0.9rem; }
+    .glow.two {
+      bottom: -150px;
+      right: -80px;
+      background: #ff174f;
+    }
 
-  .price { 
-    font-size: 2.8rem; 
-    font-weight: 800; 
-    color: #111827; 
-    margin-bottom: 30px; 
-  }
-  .old-price {
-    font-size: 1.5rem;
-    color: #9ca3af;
-    text-decoration: line-through;
-    margin-left: 15px;
-    font-weight: 400;
-  }
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      animation: appear 1.8s ease both;
+    }
 
-  /* Выбор размера */
-  .sizes { margin-bottom: 35px; }
-  .sizes p { margin-bottom: 12px; color: #374151; font-weight: bold; font-size: 0.95rem; }
-  
-  .size-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-  
-  .size-btn { 
-    padding: 12px 20px; 
-    border: 2px solid #e5e7eb; 
-    background: #fff; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    font-weight: bold; 
-    font-size: 1rem;
-    color: #374151;
-    transition: 0.2s; 
-  }
-  .size-btn:hover { border-color: #111827; }
-  .size-btn.active { border-color: #111827; background: #111827; color: #fff; }
+    .top-heart {
+      color: #ffb5ce;
+      font-size: 34px;
+      margin-bottom: 22px;
+      display: inline-block;
+      animation: heartbeat 1.7s ease-in-out infinite;
+      text-shadow: 0 0 25px #ff438c;
+    }
 
-  /* Кнопка купить */
-  .buy-btn { 
-    width: 100%; 
-    padding: 20px; 
-    background: #111827; 
-    color: #fff; 
-    border: none; 
-    border-radius: 12px; 
-    font-size: 1.2rem; 
-    font-weight: bold; 
-    cursor: pointer; 
-    transition: 0.3s; 
-    box-shadow: 0 10px 20px rgba(17, 24, 39, 0.2); 
-  }
-  .buy-btn:hover { 
-    background: #ef4444; 
-    transform: translateY(-3px); 
-    box-shadow: 0 15px 25px rgba(239, 68, 68, 0.3);
-  }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #ffc0d6;
+      margin-bottom: 24px;
+    }
 
-  /* Мобильная версия */
-  @media(max-width: 768px) {
-    .product-card { flex-direction: column; }
-    .product-img-wrapper { width: 100%; padding: 20px; height: 300px; }
-    .product-info { width: 100%; padding: 30px 20px; }
-    .title { font-size: 2rem; }
-    .price { font-size: 2.2rem; }
-  }
-</style>
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-weight: 400;
+      font-size: clamp(48px, 10vw, 86px);
+      line-height: 1.2;
+      color: #fff0f5;
+      text-shadow:
+        0 0 12px rgba(255, 144, 188, 0.45),
+        0 0 45px rgba(255, 46, 119, 0.22);
+    }
+
+    h1 span {
+      display: block;
+      color: #ffb0cd;
+      margin-top: 8px;
+    }
+
+    .line {
+      width: 95px;
+      height: 1px;
+      margin: 30px auto;
+      background: linear-gradient(90deg, transparent, #ffb0cd, transparent);
+    }
+
+    .message {
+      max-width: 440px;
+      margin: 0 auto;
+      font-size: 14px;
+      line-height: 2;
+      font-weight: 300;
+      color: #f7dce7;
+      letter-spacing: 0.4px;
+    }
+
+    .love-button {
+      margin-top: 35px;
+      padding: 14px 28px;
+      border: 1px solid rgba(255, 190, 215, 0.6);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff0f5;
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 25px rgba(255, 65, 135, 0.08);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .love-button:hover {
+      background: rgba(255, 100, 160, 0.18);
+      box-shadow: 0 0 35px rgba(255, 65, 135, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .secret {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.8s ease, opacity 0.8s ease,
+                  margin 0.8s ease;
+      color: #ffd2e2;
+      font-family: 'Great Vibes', cursive;
+      font-size: 34px;
+      line-height: 1.4;
+    }
+
+    .secret.show {
+      max-height: 180px;
+      opacity: 1;
+      margin-top: 25px;
+    }
+
+    .bottom-heart {
+      margin-top: 35px;
+      color: #ff8db8;
+      font-size: 16px;
+      letter-spacing: 12px;
+      opacity: 0.8;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      color: #ff7cab;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 0 8px rgba(255, 80, 140, 0.3));
+    }
+
+    .sparkle {
+      position: absolute;
+      color: #ffe3ed;
+      opacity: 0;
+      animation: twinkle 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.7);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.7;
+      }
+      85% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-115vh) rotate(35deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.18); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.12); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      from { transform: scale(0.9); opacity: 0.13; }
+      to { transform: scale(1.15); opacity: 0.25; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.05; transform: scale(0.7); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    @media (max-width: 480px) {
+      .eyebrow {
+        letter-spacing: 3px;
+        font-size: 10px;
+      }
+
+      .message {
+        font-size: 13px;
+      }
+
+      .line {
+        margin: 24px auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <main class="scene" id="scene">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
 
-  <div class="product-card">
-    
-    <div class="product-img-wrapper">
-      <div class="badge">ХИТ ПРОДАЖ</div>
-      
-      <!-- ВСТАВЬ ССЫЛКУ НА КАРТИНКУ КРОССОВОК ВМЕСТО ТЕКСТА НИЖЕ -->
-      <img src="krosovki.jpg" alt="Кроссовки Nike" class="product-img">
-      
-    </div>
-    
-    <div class="product-info">
-      <div class="brand">Nike</div>
-      <div class="title">Кроссовки Air Max 2026</div>
-      
-      <div class="rating">
-        ★★★★★ <span>(124 отзыва)</span>
-      </div>
-      
-      <div class="price">
-        12 990 ₽ <span class="old-price">15 000 ₽</span>
-      </div>
-      
-      <div class="sizes">
-        <p>Выберите размер (EU):</p>
-        <div class="size-buttons">
-          <button class="size-btn">40</button>
-          <button class="size-btn">41</button>
-          <button class="size-btn active">42</button>
-          <button class="size-btn">43</button>
-          <button class="size-btn">44</button>
-        </div>
-      </div>
-      
-      <button class="buy-btn">Добавить в корзину</button>
-    </div>
+    <span class="sparkle" style="top:15%;left:15%">✦</span>
+    <span class="sparkle" style="top:24%;right:13%;animation-delay:1s">✧</span>
+    <span class="sparkle" style="bottom:20%;left:20%;animation-delay:1.8s">✧</span>
+    <span class="sparkle" style="bottom:16%;right:17%;animation-delay:.5s">✦</span>
 
-  </div>
+    <section class="content">
+      <div class="top-heart">♥</div>
 
+      <p class="eyebrow">Одно послание для одного человека</p>
+
+      <h1>
+        Карина,
+        <span>я тебя очень сильно люблю</span>
+      </h1>
+
+      <div class="line"></div>
+
+      <p class="message">
+        Иногда самые важные слова сложно сказать вслух.
+        Поэтому я хочу, чтобы ты просто знала:
+        ты очень много для меня значишь. ❤️
+      </p>
+
+      <button class="love-button" id="loveButton" type="button">
+        Для тебя ♥
+      </button>
+
+      <p class="secret" id="secret" aria-live="polite">
+        Ты — моё самое тёплое чувство. ❤️
+      </p>
+
+      <div class="bottom-heart">♥ ♥ ♥</div>
+    </section>
+  </main>
+
+  <script>
+    const scene = document.getElementById('scene');
+    const button = document.getElementById('loveButton');
+    const secret = document.getElementById('secret');
+
+    const hearts = ['♥', '♡', '❤', '💕'];
+
+    function createHeart() {
+      const heart = document.createElement('span');
+      heart.className = 'floating-heart';
+      heart.textContent = hearts[
+        Math.floor(Math.random() * hearts.length)
+      ];
+
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (14 + Math.random() * 22) + 'px';
+      heart.style.animationDuration = (7 + Math.random() * 7) + 's';
+
+      scene.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 15000);
+    }
+
+    for (let i = 0; i < 12; i++) {
+      setTimeout(createHeart, i * 350);
+    }
+
+    setInterval(createHeart, 650);
+
+    button.addEventListener('click', () => {
+      secret.classList.toggle('show');
+
+      button.textContent = secret.classList.contains('show')
+        ? 'Ещё одно сердечко ♥'
+        : 'Для тебя ♥';
+
+      for (let i = 0; i < 12; i++) {
+        setTimeout(createHeart, i * 90);
+      }
+    });
+  </script>
 </body>
 </html>
